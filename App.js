@@ -3,18 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { WebView } from "react-native-webview";
 
 export default function App() {
-  const html = `
-      <html>
-      <head></head>
-      <body>
-        <script>
-          setTimeout(function () {
-            window.ReactNativeWebView.postMessage("Hello!")
-          }, 2000)
-        </script>
-      </body>
-      </html>
-    `;
+
 setTimeout(()=>{
   if(WebViewRef){
     alert('posting')
@@ -30,6 +19,7 @@ setTimeout(()=>{
   let WebViewRef;
   return (
     <WebView
+    useWebKit={true}
     ref={WEBVIEW_REF => (WebViewRef = WEBVIEW_REF)}
     // source={{ html }}
     // onMessage={event => {
@@ -37,7 +27,7 @@ setTimeout(()=>{
     // }}
       source={{
         uri:
-          "https://ecampus-dev.hsu.edu.hk/moodle/webview_new_testing_web/index.html"
+          "https://ecampus-dev.hsu.edu.hk/moodle/webview_new_testing_web/index2.html"
       }}
       style={{ marginTop: 20 }}
     />
