@@ -29,11 +29,14 @@ export default function App() {
       window.postMessage(${JSON.stringify('dsafasdf')}, "*");
       true;
     `;
-     WebViewRef.injectJavaScript(clientResponseCode);
+    //  WebViewRef.injectJavaScript(clientResponseCode);
     if (WebViewRef) {
       WebViewRef.injectJavaScript(clientResponseCode);
     }
     // WebViewRef.postMessage("some message");
+  };
+  const sendMessageToWebOld = () => {
+    WebViewRef.postMessage("red");
   };
   setTimeout(() => {
     // window.ReactNativeWebView = window['ReactAPI36_0_0NativeWebView'];
@@ -53,32 +56,31 @@ export default function App() {
   // }
   let WebViewRef;
 
-  const INJECTED_JAVASCRIPT = `(function() {
-    // This is the important part!
-    if (!window.ReactNativeWebView) {
-      window.ReactNativeWebView = window['ReactABI33_0_0NativeWebView'];
-    }
-    // End of the important part! Now continue using it as usual
 
-    window.ReactNativeWebView.postMessage(JSON.stringify(window.location));
-})();`;
   return (
     <View style={{ flex: 1 }}>
       <Button title="no function" style={{ paddingTop: 100, marginTop: 100 }} />
+      <View style={{flexDirection:'row',alignContent:'center'}}>
       <Button
-        title="enter"
+        title="New Post Message"
         onPress={sendMessageToWeb}
         style={{ paddingTop: 399, marginTop: 300 }}
       />
+      <Button
+        title="Old Post Message"
+        onPress={sendMessageToWebOld}
+        style={{ paddingTop: 399, marginTop: 300 }}
+      />
+      </View>
       <WebView
         useWebKit={true}
         ref={WEBVIEW_REF => (WebViewRef = WEBVIEW_REF)}
         javaScriptEnabled={true}
         // injectedJavaScript={INJECTED_JAVASCRIPT}
-        // source={{ html }}
-        // onMessage={event => {
-        //   alert(event.nativeEvent.data);
-        // }}
+        // source={{ html }}  
+        onMessage={event => {
+          alert('event.nativeEvent.data');
+        }}
         onLoadEnd={() => WebViewRef.postMessage("red")}
         source={{
           uri:
